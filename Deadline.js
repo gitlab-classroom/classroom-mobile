@@ -1,7 +1,7 @@
 'use strict'
 
 var React = require('react-native');
-var ItemMaterials =require('./test.js');
+var ItemMaterials =require('./itemDeadline.js');
 var {
   Image,
   ListView,
@@ -11,6 +11,7 @@ var {
   View,
 } = React;
 
+var DEADLINE_URL = 'https://htc.fdu13ss.org/api/v1/assignments';
 
 var Deadline = React.createClass({
 
@@ -27,12 +28,20 @@ var Deadline = React.createClass({
   },
 
   fetchData: function() {
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(
-                [{id: 23333, name: "Monkey Tong", path: "...", description: "miao!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},
-                {id: 101110101, name: "miao", path: "...", description: "wang!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"}]
-              )
-    });
+    fetch(DEADLINE_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+        });
+      })
+      .done();
+    // this.setState({
+    //   dataSource: this.state.dataSource.cloneWithRows(
+    //             [{id: 23333, name: "Monkey Tong", path: "...", description: "miao!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},
+    //             {id: 101110101, name: "miao", path: "...", description: "wang!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"}]
+    //           )
+    // });
   },
 
   renderLoadingView: function() {

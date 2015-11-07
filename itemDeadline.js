@@ -17,14 +17,15 @@ var ratio = PixelRatio.get();
 
 var ItemDeadline = React.createClass({
   render: function() {
-    var courses = this.props.data.forked_from_project.name_with_namespace.split(' / ');
+    var courses = this.props.data.class;
+    var labs = this.props.data.name;
     var days = this.props.data.daysLeft;
     return (
       days>=0?
       <View style={styles.container}>
         <View style={{flex: 6}}>
-          <Text style={[styles.description, {color: '#000000'}]}>{"距离 " + courses[1] + " 截止"}</Text>
-          <Text style={[styles.name, {color: '#666666'}]}>{courses[0]}</Text>
+          <Text style={[styles.description, {color: '#000000'}]}>{"距离 " + labs + " 截止"}</Text>
+          <Text style={[styles.name, {color: '#666666'}]}>{courses}</Text>
         </View>
         <View style={{flex: 2}}>
           <Text style={[styles.time, {backgroundColor: days<=0?'#FF3B30':days <= 2?'#FFCC00':'#007AFF'}]}>{days}</Text>
@@ -36,11 +37,11 @@ var ItemDeadline = React.createClass({
         :
         <View style={styles.container}>
           <View style={{flex: 6}}>
-            <Text style={[styles.description, {color: '#AAAAAA'}]}>{"距离 " + courses[1] + " 截止"}</Text>
-            <Text style={[styles.name, {color: '#AAAAAA'}]}>{courses[0]}</Text>
+            <Text style={[styles.description, {color: '#AAAAAA'}]}>{"距离 " + labs + " 截止"}</Text>
+            <Text style={[styles.name, {color: '#AAAAAA'}]}>{courses}</Text>
           </View>
           <View style={[styles.right, {flex: 2.5}]}>
-            <Text style={styles.unit}>{"已结束   "}</Text>
+            <Text style={styles.unit}>{"已结束"}</Text>
           </View>
         </View>
     );
@@ -54,7 +55,7 @@ var styles = StyleSheet.create({
     paddingLeft: 10 * ratio,
     paddingRight: 10 * ratio,
     paddingTop: 5 * ratio,
-    paddingBottom: 5 * ratio
+    paddingBottom: 5 * ratio,
   },
   time: {
     fontSize: 20 * ratio,
