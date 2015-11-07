@@ -28,6 +28,29 @@ var Seperator = React.createClass({
 
 var Profile = React.createClass({
 
+  componentDidMount() {
+    this._loadInitialState().done();
+  },
+
+  async _loadInitialState() {
+    try {
+      var value = await AsyncStorage.getItem('TOKEN');
+      if (value !== null){
+        // this.setState({selectedValue: value});
+      } else {
+      }
+    } catch (error) {
+    }
+  },
+
+  renderProfile: function () {
+
+  },
+
+  renderLogin: function () {
+
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
@@ -35,7 +58,7 @@ var Profile = React.createClass({
         <Seperator/>
         <View style={styles.profile}>
           <Image
-            source={{uri: 'https://pic4.zhimg.com/8e54087c7_m.jpg'}}
+            source={{uri: 'https://pic2.zhimg.com/a39818e6281796ee9936ab25f26ec20d_m.jpg'}}
             style={styles.thumbnail}
           />
           <View style={styles.right}>
@@ -67,7 +90,7 @@ var styles = StyleSheet.create({
   thumbnail: {
     width: 25 * ratio,
     height: 25 * ratio,
-    borderRadius: 10 * ratio,
+    borderRadius: 12.5 * ratio,
     marginLeft: 5 * ratio,
     marginRight: 5 * ratio,
   },

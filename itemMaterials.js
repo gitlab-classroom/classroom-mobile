@@ -39,7 +39,7 @@ var ItemMaterials = React.createClass({
         />
         <View style={styles.right}>
           <Text style={styles.name}>{this.props.data.name}</Text>
-          <Text style={styles.description}>{cutString(50, this.props.data.description)}</Text>
+          <Text style={styles.description}>{this.props.data.description}</Text>
         </View>
       </View>
     </TouchableElement>
@@ -48,38 +48,34 @@ var ItemMaterials = React.createClass({
   }
 });
 
-function cutString(len, src){
-  if (src.length > len - 2)
-    return src.substr(0, len - 2) + "..";
-  else
-    return src;
-}
 
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 5 * ratio,
-    backgroundColor: '#F5FCFF',
+    padding: 10,
+    backgroundColor: 'white',
   },
   thumbnail: {
-    width: 25 * ratio,
-    height: 25 * ratio,
-    borderRadius: 10 * ratio,
-    marginLeft: 5 * ratio,
-    marginRight: 5 * ratio,
+    width: 50,
+    height: 50,
+    borderRadius: 20,
+    marginLeft: 10,
+    marginRight: 10,
   },
   name: {
     flex: 1,
-    fontSize: 8 * ratio,
+    fontSize: 16,
     fontWeight: 'bold',
-    paddingBottom: 1.5 * ratio,
+    paddingBottom: 3,
+    paddingRight: 2,
   },
   description: {
     flex: 1,
-    fontSize: 6 * ratio,
+    fontSize: 12,
     color: '#666666',
-    paddingTop: 1.5 * ratio,
+    paddingTop: 3,
+    paddingRight: 2,
   },
   right: {
     flex: 1,

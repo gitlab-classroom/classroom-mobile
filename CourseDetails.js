@@ -15,6 +15,8 @@ var {
 var ItemMaterials = require('./test.js');
 var EventBus = require('./EventBus');
 
+
+
 var Button = React.createClass({
   getInitialState() {
     return {
@@ -61,13 +63,7 @@ var CourseDetails = React.createClass({
     this.fetchData();
   },
 
-  fetchData: function() {
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(
-          []
-              )
-    });
-  },
+
   getInitialState: function() {
     return {
       dataSource: new ListView.DataSource({
@@ -76,6 +72,16 @@ var CourseDetails = React.createClass({
       animated: true,
       modalVisible: false,
       transparent: true,
+      data_assignments: null,
+      data_materials: null,
+      data_members: null,
+      data_notifications: null,
+      // loaded: false,
+      // ACTIVITY_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/activities',
+      // ASSIGNMENT_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/assignments',
+      // MATERIAL_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/materials',
+      // MENBER_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/members',
+      // NOTIFICATION_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/notifications',
     };
   },
   componentDidMount: function() {
@@ -84,7 +90,15 @@ var CourseDetails = React.createClass({
       EventBus.addEventListener('show_modal', function(){ctx._setModalVisible(true)});
   },
 
-  fetchData: function() {
+  fetchData: function(url) {
+    // fetch(CLASS_URL)
+    //   .then((response) => response.json())
+    //   .then((responseData) => {
+    //     this.setState({
+    //       dataSource: this.state.dataSource.cloneWithRows(responseData),
+    //     });
+    //   })
+    //   .done();
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(
                 [{id: 23333, name: "Monkey Tong", path: "...", description: "miao!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},

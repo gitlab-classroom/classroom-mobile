@@ -6,14 +6,11 @@
 
 var React = require('react-native');
 var {
-  PixelRatio,
   StyleSheet,
   Text,
   View,
 
   } = React;
-
-var ratio = PixelRatio.get();
 
 var ItemDeadline = React.createClass({
   render: function() {
@@ -52,33 +49,33 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 10 * ratio,
-    paddingRight: 10 * ratio,
-    paddingTop: 5 * ratio,
-    paddingBottom: 5 * ratio,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   time: {
-    fontSize: 20 * ratio,
+    fontSize: 40,
     textAlign: 'center',
     color: '#fff',
-    borderRadius: 2 * ratio,
+    borderRadius: 4,
   },
   description: {
-    fontSize: 8 * ratio,
+    fontSize: 16,
     fontWeight: 'bold',
-    paddingRight: 10 * ratio,
-    paddingBottom: 1.5 * ratio,
+    paddingRight: 20,
+    paddingBottom: 3,
   },
   name:{
-    fontSize: 6 * ratio,
-    paddingRight: 10 * ratio,
-    paddingTop: 1.5 * ratio,
+    fontSize: 12,
+    paddingRight: 20,
+    paddingTop: 3,
   },
   unit:{
-    fontSize: 10 * ratio,
+    fontSize: 20,
   },
   right: {
-    padding: 5 * ratio,
+    padding: 10,
   }
 });
 

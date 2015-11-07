@@ -6,23 +6,18 @@
 
 var React = require('react-native');
 var {
-  PixelRatio,
-  AppRegistry,
-  NavigatorIOS,
-  Image,
   StyleSheet,
   Text,
   View,
   } = React;
 
-var ratio = PixelRatio.get();
 
 var ItemSquare = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{this.props.data.title}</Text>
-        <Text style={styles.content}>{this.props.data.content}</Text>
+        <Text style={styles.name}>{this.props.data.name}</Text>
+        <Text style={styles.description}>{this.props.data.description}</Text>
       </View>
     );
   }
@@ -31,22 +26,22 @@ var ItemSquare = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 30 * ratio,
+    height: 60,
     alignItems: 'center',
   },
-  title: {
+  name: {
     flex: 1,
-    fontSize: 10 * ratio,
+    fontSize: 20,
     color: '#000000',
     fontWeight: 'bold',
-    paddingLeft: 10 * ratio,
-    paddingRight: 5 * ratio,
+    paddingLeft: 20,
+    paddingRight: 10,
   },
-  content: {
+  description: {
     flex: 4,
-    fontSize: 7 * ratio,
+    fontSize: 15,
     color: '#000000',
-    paddingRight: 5 * ratio,
+    paddingRight: 10,
   },
 });
 

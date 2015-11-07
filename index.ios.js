@@ -91,7 +91,7 @@ var Classroom = React.createClass({
 
 
       <TabBarIOS
-        tintColor="blue"
+        tintColor="#4169E1"
         barTintColor="white">
         <TabBarIOS.Item
           title="Home"
