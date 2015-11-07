@@ -33,15 +33,14 @@ var ItemMaterials = React.createClass({
       onPress={this.props.onSelect}
       >
       <View style={styles.container}>
-          <Image
-            source={{uri: this.props.data.avatar_url}}
-            style={styles.thumbnail}
-          />
-          <View>
-            <Text style={styles.title}>{this.props.data.name}</Text>
-            <Text style={styles.instructions}>{this.props.data.description}</Text>
-          </View>
-
+        <Image
+          source={{uri: this.props.data.avatar_url}}
+          style={styles.thumbnail}
+        />
+        <View style={styles.right}>
+          <Text style={styles.name}>{this.props.data.name}</Text>
+          <Text style={styles.description}>{cutString(50, this.props.data.description)}</Text>
+        </View>
       </View>
     </TouchableElement>
     </View>
@@ -49,32 +48,42 @@ var ItemMaterials = React.createClass({
   }
 });
 
+function cutString(len, src){
+  if (src.length > len - 2)
+    return src.substr(0, len - 2) + "..";
+  else
+    return src;
+}
+
 var styles = StyleSheet.create({
-  thumbnail: {
-    width: 30 * ratio,
-    height: 30 * ratio,
-    borderRadius: 15 * ratio,
-    marginLeft: 10 * ratio,
-    marginRight: 10 * ratio,
-  },
   container: {
     flexDirection: 'row',
-    backgroundColor: '#F5FCFF',
-    height: 50 * ratio,
     alignItems: 'center',
+    padding: 5 * ratio,
+    backgroundColor: '#F5FCFF',
   },
-  title: {
+  thumbnail: {
+    width: 25 * ratio,
+    height: 25 * ratio,
+    borderRadius: 10 * ratio,
+    marginLeft: 5 * ratio,
+    marginRight: 5 * ratio,
+  },
+  name: {
     flex: 1,
-    fontSize: 10 * ratio,
-    margin: 2 * ratio,
+    fontSize: 8 * ratio,
     fontWeight: 'bold',
+    paddingBottom: 1.5 * ratio,
   },
-  instructions: {
+  description: {
     flex: 1,
-    fontSize: 7 * ratio,
+    fontSize: 6 * ratio,
     color: '#666666',
-    margin: 2 * ratio,
+    paddingTop: 1.5 * ratio,
   },
+  right: {
+    flex: 1,
+  }
 });
 
 module.exports = ItemMaterials;

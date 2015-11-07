@@ -6,6 +6,7 @@
 var React = require('react-native');
 var ItemMaterials =require('./itemMaterials');
 var CourseDetails = require('./CourseDetails');
+var EventBus = require('./EventBus');
 
 var {
   Image,
@@ -16,6 +17,8 @@ var {
   Text,
   View,
   } = React;
+
+var CLASS_URL = 'https://htc.fdu13ss.org/api/v1/classes';
 
 var Homepage = React.createClass({
 
@@ -32,12 +35,21 @@ var Homepage = React.createClass({
   },
 
   fetchData: function() {
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(
-                [{id: 23333, name: "Monkey Tong", path: "...", description: "miao!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},
-                {id: 101110101, name: "miao", path: "...", description: "wang!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"}]
-              )
-    });
+    fetch(CLASS_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+        });
+      })
+      .done();
+    // Static data
+    // this.setState({
+      // dataSource: this.state.dataSource.cloneWithRows(
+      //           [{id: 23333, name: "Monkey Tong", path: "...", description: "miao!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},
+      //           {id: 101110101, name: "miao", path: "...", description: "wang!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"}]
+      //         )
+    // });
   },
 
   selectCourse: function(course) {
@@ -47,7 +59,7 @@ var Homepage = React.createClass({
         component: CourseDetails,
         passProps: {course},
         rightButtonTitle: 'More',
-        onRightButtonPress: () => {CourseDetails.setModalVisible(true)},
+        onRightButtonPress: () => {EventBus.dispatch("show_modal")},
       });
     } else {
       //todo: android

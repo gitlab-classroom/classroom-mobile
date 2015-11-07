@@ -13,6 +13,7 @@ var {
   View,
 } = React;
 var ItemMaterials = require('./test.js');
+var EventBus = require('./EventBus');
 
 var Button = React.createClass({
   getInitialState() {
@@ -79,16 +80,19 @@ var CourseDetails = React.createClass({
   },
   componentDidMount: function() {
       this.fetchData();
-    },
+      var ctx = this;
+      EventBus.addEventListener('show_modal', function(){ctx._setModalVisible(true)});
+  },
 
-    fetchData: function() {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(
-                  [{id: 23333, name: "Monkey Tong", path: "...", description: "miao!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},
-                  {id: 101110101, name: "miao", path: "...", description: "wang!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"}]
-                )
-      });
-    },
+  fetchData: function() {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(
+                [{id: 23333, name: "Monkey Tong", path: "...", description: "miao!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},
+                {id: 101110101, name: "miao", path: "...", description: "wang!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"}]
+              )
+    });
+  },
+
   selectCourse: function(course) {
     if (Platform.OS === 'ios') {
       this.props.navigator.push({
@@ -145,9 +149,7 @@ var CourseDetails = React.createClass({
             </View>
           </View>
         </Modal>
-        <Button onPress={this._setModalVisible.bind(this, true)}>
-          Present
-        </Button>
+
         <ListView
           dataSource={this.state.dataSource}
           // renderSeparator={this.renderSeparator}
@@ -198,7 +200,7 @@ var styles = StyleSheet.create({
 
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     padding: 20,
   },
   innerContainer: {
