@@ -28,7 +28,7 @@ var Classroom = React.createClass({
 
   getInitialState: function() {
     return {
-      selectedTab: 'scheduleTab',
+      selectedTab: 'homeTab',
       notifCount: 0,
     };
   },
