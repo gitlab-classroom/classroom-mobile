@@ -7,6 +7,7 @@
 var React = require('react-native');
 var Homepage = require('./Homepage.js');
 var Deadline = require('./Deadline.js');
+var Profile = require('./Profile');
 var {
   AppRegistry,
   NavigatorIOS,
@@ -69,8 +70,16 @@ var Classroom = React.createClass({
         />
       );
     }
-    else if (index == 2) {
-      return this._renderContent('#21551C', 'Profile Tab');
+    else {
+      return (
+        <NavigatorIOS
+          style={styles.container}
+          initialRoute={{
+            title: 'My profile',
+            component: Profile,
+          }}
+        />
+      );
     }
     return this._renderContent('#414A8C', 'Home');
   },
