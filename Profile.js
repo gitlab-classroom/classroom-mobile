@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Square = require('./itemSquare');
 var {
   PixelRatio,
   NavigatorIOS,
@@ -15,10 +16,23 @@ var {
 
 var ratio = PixelRatio.get()
 
+var Seperator = React.createClass({
+
+  render: function() {
+    return (
+      <View style={styles.rowSeparator}/>
+    );
+  }
+
+});
+
 var Profile = React.createClass({
+
   render: function() {
     return (
       <View style={styles.container}>
+        <View style={{marginTop: 30}}/>
+        <Seperator/>
         <View style={styles.profile}>
           <Image
             source={{uri: 'https://pic4.zhimg.com/8e54087c7_m.jpg'}}
@@ -29,6 +43,10 @@ var Profile = React.createClass({
             <Text style={styles.description}>汪汪汪！</Text>
           </View>
         </View>
+        <Seperator/>
+        <View style={{marginTop: 40}}/>
+        <Square data={{title: 'Email', content: '13302010000@fudan.edu.cn'}}/>
+        <View/>
       </View>
     );
   }
@@ -36,7 +54,9 @@ var Profile = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 80,
+    marginTop: 60,
+    backgroundColor: '#eeeeee',
+    flex: 1,
   },
   profile: {
     flexDirection: 'row',
@@ -65,7 +85,13 @@ var styles = StyleSheet.create({
   },
   right: {
     flex: 1,
-  }
+    marginLeft: 30,
+  },
+  rowSeparator: {
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    height: 1,
+    marginLeft: 4,
+  },
 });
 
 module.exports = Profile;
