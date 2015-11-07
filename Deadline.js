@@ -1,23 +1,18 @@
-/**
- * Created by lifengshuang on 11/7/15.
- */
-'use strict';
+'use strict'
 
 var React = require('react-native');
-var ItemMaterials =require('./itemMaterials');
-var CourseDetails = require('./CourseDetails');
-
+var ItemMaterials =require('./test.js');
 var {
   Image,
-  Platform,
   ListView,
   StyleSheet,
   SearchBar,
   Text,
   View,
-  } = React;
+} = React;
 
-var Homepage = React.createClass({
+
+var Deadline = React.createClass({
 
   getInitialState: function() {
     return {
@@ -40,20 +35,6 @@ var Homepage = React.createClass({
     });
   },
 
-  selectCourse: function(course) {
-    if (Platform.OS === 'ios') {
-      this.props.navigator.push({
-        title: course.name,
-        component: CourseDetails,
-        passProps: {course},
-        rightButtonTitle: 'More',
-        onRightButtonPress: () => {CourseDetails.setModalVisible(true)},
-      });
-    } else {
-      //todo: android
-    }
-  },
-
   renderLoadingView: function() {
     return (
       <View style={styles.container}>
@@ -64,30 +45,12 @@ var Homepage = React.createClass({
     );
   },
 
-  renderSeparator: function(
-    sectionID: number | string,
-    rowID: number | string,
-    adjacentRowHighlighted: boolean
-  ) {
-    var style = styles.rowSeparator;
-    if (adjacentRowHighlighted) {
-        style = [style, styles.rowSeparatorHide];
-    }
-    return (
-      <View key={'SEP_' + sectionID + '_' + rowID}  style={style}/>
-    );
-  },
-
   renderCourse: function(course) {
     if (course == undefined) {
-      return (<Text>miao!</Text>);
+      return (<Text>Loading!</Text>);
     }
     return (
-      <ItemMaterials
-        key={course.id}
-        data = {course}
-        onSelect={() => this.selectCourse(course)}
-      />
+      <ItemMaterials data = {course}/>
     );
   },
 
@@ -101,7 +64,6 @@ var Homepage = React.createClass({
 
         <ListView
           dataSource={this.state.dataSource}
-          renderSeparator={this.renderSeparator}
           renderRow={this.renderCourse}
           style={styles.listView}
         />
@@ -117,6 +79,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
     // marginTop: 60,
   },
+
 
 
   listcell: {
@@ -144,15 +107,7 @@ var styles = StyleSheet.create({
   listView: {
     backgroundColor: '#F5FCFF',
   },
-  rowSeparator: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    height: 1,
-    marginLeft: 4,
-  },
-  rowSeparatorHide: {
-    opacity: 0.0,
-  },
 });
 
 
-module.exports = Homepage;
+module.exports = Deadline;

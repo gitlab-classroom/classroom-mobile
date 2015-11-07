@@ -10,8 +10,11 @@ var {
   AppRegistry,
   NavigatorIOS,
   Image,
+  Platform,
   StyleSheet,
   Text,
+  TouchableHighlight,
+  TouchableNativeFeedback,
   View,
 
   } = React;
@@ -20,17 +23,28 @@ var ratio = PixelRatio.get();
 
 var ItemMaterials = React.createClass({
   render: function() {
+    var TouchableElement = TouchableHighlight;
+    if (Platform.OS === 'android') {
+      TouchableElement = TouchableNativeFeedback;
+    }
     return (
+      <View>
+    <TouchableElement
+      onPress={this.props.onSelect}
+      >
       <View style={styles.container}>
-        <Image
-          source={{uri: this.props.data.avatar_url}}
-          style={styles.thumbnail}
-        />
-        <View>
-          <Text style={styles.title}>{this.props.data.name}</Text>
-          <Text style={styles.instructions}>{this.props.data.description}</Text>
-        </View>
+          <Image
+            source={{uri: this.props.data.avatar_url}}
+            style={styles.thumbnail}
+          />
+          <View>
+            <Text style={styles.title}>{this.props.data.name}</Text>
+            <Text style={styles.instructions}>{this.props.data.description}</Text>
+          </View>
+
       </View>
+    </TouchableElement>
+    </View>
     );
   }
 });
@@ -45,6 +59,7 @@ var styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
+    backgroundColor: '#F5FCFF',
     height: 50 * ratio,
     alignItems: 'center',
   },

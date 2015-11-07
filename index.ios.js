@@ -6,6 +6,7 @@
 
 var React = require('react-native');
 var Homepage = require('./Homepage.js');
+var Deadline = require('./Deadline.js');
 var {
   AppRegistry,
   NavigatorIOS,
@@ -55,7 +56,15 @@ var Classroom = React.createClass({
       );
     }
     else if (index == 1) {
-      return this._renderContent('#783E33', 'Red Tab');
+      return (
+        <NavigatorIOS
+          style={styles.container}
+          initialRoute={{
+            title: 'Deadline',
+            component: Deadline,
+          }}
+        />
+      );
     }
     else if (index == 2) {
       return this._renderContent('#21551C', 'Profile Tab');
@@ -82,13 +91,14 @@ var Classroom = React.createClass({
           {this._renderTab(0)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          systemIcon="history"
-          badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
+          // systemIcon="history"
+          title="Deadline"
+          // badge={3}
           selected={this.state.selectedTab === 'scheduleTab'}
           onPress={() => {
             this.setState({
               selectedTab: 'scheduleTab',
-              notifCount: this.state.notifCount + 1,
+              notifCount: 3,
             });
           }}>
           {this._renderTab(1)}
