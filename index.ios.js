@@ -8,6 +8,7 @@ var React = require('react-native');
 var Homepage = require('./Homepage.js');
 var Deadline = require('./Deadline.js');
 var Profile = require('./Profile');
+var config = require('./config');
 var {
   AppRegistry,
   AsyncStorage,
@@ -45,25 +46,30 @@ var Classroom = React.createClass({
   },
 
   componentDidMount: function() {
-    try {
-      var username = AsyncStorage.getItem('username');
-      if (username == null){
-        this.fetchData();
-      }
-      else {
-        this.setState({
-          login: true,
-        });
-      }
-    } catch (error) {
-      this.setState({
-        login: true,
-      });
-    }
+    this.fetchData();
+    this.setState({
+      login: true
+    });
+    // try {
+    //   var username = AsyncStorage.getItem('username');
+    //   if (username == null){
+    //     this.fetchData();
+    //   }
+    //   else {
+    //     this.setState({
+    //       login: true,
+    //     });
+    //     this.fetchData();
+    //   }
+    // } catch (error) {
+    //   this.setState({
+    //     login: true,
+    //   });
+    // }
   },
 
   fetchData: function() {
-    fetch('https://htc.fdu13ss.org/api/v1/session/login?username=13302010002%40fudan.edu.cn&password=13302010002')
+    fetch(config.baseUrl + '/session/login?username=13302010002%40fudan.edu.cn&password=13302010002')
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({

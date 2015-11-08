@@ -9,6 +9,7 @@ var {
   TextInput,
   Text,
   View,
+  TouchableHighlight
   } = React;
 
 var ItemLogin = React.createClass({
@@ -24,6 +25,9 @@ var ItemLogin = React.createClass({
           secureTextEntry={true}
           style={styles.input}
         />
+        <TouchableHighlight onPress={this._onPressButton}>
+      <Text>2333</Text>
+    </TouchableHighlight>
       </View>
     );
   }

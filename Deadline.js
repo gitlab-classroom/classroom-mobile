@@ -3,6 +3,7 @@
 var React = require('react-native');
 var ItemDeadline =require('./itemDeadline.js');
 var ItemAssignment = require('./itemAssignment');
+var config = require('./config');
 var {
   Image,
   Platform,
@@ -13,7 +14,7 @@ var {
   View,
 } = React;
 
-var DEADLINE_URL = 'https://htc.fdu13ss.org/api/v1/assignments';
+var DEADLINE_URL = config.baseUrl + '/assignments';
 
 var Deadline = React.createClass({
 

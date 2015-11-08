@@ -15,6 +15,7 @@ var {
 var ItemDetail = require('./itemDetail.js');
 var ItemAssignment = require('./itemAssignment');
 var EventBus = require('./EventBus');
+let config = require('./config');
 
 
 
@@ -78,11 +79,11 @@ var CourseDetails = React.createClass({
       data_members: null,
       data_notifications: null,
       // loaded: false,
-      ACTIVITY_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/activities',
-      ASSIGNMENT_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/assignments',
-      MATERIAL_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/materials',
-      MENBER_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/members',
-      NOTIFICATION_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/notifications',
+      ACTIVITY_URL: config.baseUrl + '/classes/' + this.props.course.id + '/activities',
+      ASSIGNMENT_URL: config.baseUrl + '/classes/' + this.props.course.id + '/assignments',
+      MATERIAL_URL: config.baseUrl + '/classes/' + this.props.course.id + '/materials',
+      MENBER_URL: config.baseUrl + '/classes/' + this.props.course.id + '/members',
+      NOTIFICATION_URL: config.baseUrl + '/classes/' + this.props.course.id + '/notifications',
     };
   },
   componentDidMount: function() {

@@ -7,6 +7,7 @@ var React = require('react-native');
 var ItemMaterials =require('./itemMaterials');
 var CourseDetails = require('./CourseDetails');
 var EventBus = require('./EventBus');
+var config = require('./config');
 
 var {
   Image,
@@ -18,7 +19,7 @@ var {
   View,
   } = React;
 
-var CLASS_URL = 'https://htc.fdu13ss.org/api/v1/classes';
+var CLASS_URL = config.baseUrl + '/classes';
 
 var Homepage = React.createClass({
 
