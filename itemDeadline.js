@@ -62,7 +62,7 @@ var styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     color: '#fff',
-    borderRadius: 4,
+    borderRadius: 5,
   },
   description: {
     fontSize: 16,
