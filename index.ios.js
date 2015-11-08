@@ -9,6 +9,7 @@ var Homepage = require('./Homepage.js');
 var Deadline = require('./Deadline.js');
 var Profile = require('./Profile');
 var config = require('./config');
+var Login = require('./itemLogin');
 var {
   AppRegistry,
   AsyncStorage,
@@ -42,14 +43,17 @@ var Classroom = React.createClass({
       selectedTab: 'homeTab',
       notifCount: 0,
       login: false,
+      loginErrorText: '',
+      username: '',
+      password: '',
     };
   },
 
   componentDidMount: function() {
-    this.fetchData();
-    this.setState({
-      login: true
-    });
+    // this.fetchData();
+    // this.setState({
+    //   login: true
+    // });
     // try {
     //   var username = AsyncStorage.getItem('username');
     //   if (username == null){
@@ -68,14 +72,20 @@ var Classroom = React.createClass({
     // }
   },
 
-  fetchData: function() {
-    fetch(config.baseUrl + '/session/login?username=13302010002%40fudan.edu.cn&password=13302010002')
+  fetchData: function(username, password) {
+    fetch(config.baseUrl + '/session/login?username=' + username + '&password=' + password)
       .then((response) => response.json())
       .then((responseData) => {
-        this.setState({
-          login: true,
-        });
-        AsyncStorage.setItem('username', 'lfs');
+        if (responseData.message == 'ok'){
+          this.setState({
+            login: true,
+          });
+          // AsyncStorage.setItem('username', 'lfs');
+        } else {
+          this.setState({
+            loginErrorText: 'Login failed, Try again!',//this.state.username + '|' + this.state.password + '|' + responseData.message,
+          });
+        }
       })
       .done();
   },
@@ -127,7 +137,14 @@ var Classroom = React.createClass({
   },
 
   renderLogin: function () {
-
+    var ctx = this;
+    return (
+      <Login
+        onPressButton = {() => {ctx.fetchData(ctx.state.username, ctx.state.password)}}
+        errorText = {this.state.loginErrorText}
+        changeUsername = {(username) => {ctx.setState({username: username});}}
+        changePassword = {(password) => {ctx.setState({password: password});}}/>
+    )
   },
 
   renderTabBar: function() {
@@ -184,7 +201,7 @@ var Classroom = React.createClass({
     if (this.state.login) {
       return this.renderTabBar();
     } else {
-      return (<Text>login</Text>);
+      return this.renderLogin();
     }
   }
 });
