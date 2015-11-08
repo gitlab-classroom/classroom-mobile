@@ -8,6 +8,7 @@ var React = require('react-native');
 var {
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
 
   } = React;
@@ -15,22 +16,26 @@ var {
 var ItemDetail = React.createClass({
   render: function() {
     var type = this.props.data.item_type;
-    if (type == 'members') return null;
-    var header = ((type=='assignments')?('Assignments'):((type=='materials')?('Materials'):('Notifications')));
-    var color = ((type=='assignments')?('#FF3B30'):((type=='materials')?('#FFCC00'):('#007AFF')));
-    var title = type=='assignments'?this.props.data.name_with_namespace:
-                type=='materials'?this.props.data.name:this.props.data.title;
-    var content = type=='assignments'?this.props.data.description:
-                  type=='materials'?this.props.data.type:this.props.data.description;
+    if (type == 'member') return null;
+    var header = ((type=='assignment')?('Assignments'):((type=='material')?('Materials'):('Notifications')));
+    var color = ((type=='assignment')?('#FF3B30'):((type=='material')?('#FFCC00'):('#007AFF')));
+    var title = type=='assignment'?this.props.data.name_with_namespace:
+                type=='material'?this.props.data.name:this.props.data.title;
+    var content = type=='assignment'?this.props.data.description:
+                  type=='material'?this.props.data.type:this.props.data.description;
     return (
+    <TouchableHighlight
+      onPress={this.props.onSelect}>
       <View style={styles.container}>
         <View style={styles.top}>
           <View style={[styles.circle, {backgroundColor: color}]}></View>
           <Text style={styles.header}>{header}</Text>
         </View>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.content}>{content}</Text>
+        <Text style={styles.title} numberOfLines = {1}>{title}</Text>
+        <Text style={styles.content} numberOfLines = {1}>{content}</Text>
+        <View style={styles.separator}/>
       </View>
+    </TouchableHighlight>
     );
   }
 
@@ -39,6 +44,7 @@ var ItemDetail = React.createClass({
 var styles = StyleSheet.create({
   container: {
     padding: 10,
+    backgroundColor: 'white',
   },
   header: {
     fontSize: 15,
@@ -56,7 +62,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    paddingLeft: 7.5,
+    paddingLeft: 30,
     paddingRight: 7.5,
     fontSize: 14,
     lineHeight: 20,
@@ -64,9 +70,15 @@ var styles = StyleSheet.create({
   },
   content: {
     fontSize: 12,
-    paddingLeft: 7.5,
+    paddingLeft: 30,
     paddingRight: 7.5,
     paddingTop: 2.5,
+  },
+  separator: {
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    height: 1,
+    marginLeft: 4,
+    marginTop: 20,
   }
 });
 

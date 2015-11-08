@@ -16,8 +16,8 @@ var ItemSquare = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
-        <Text style={styles.name}>{this.props.data.name}</Text>
-        <Text style={styles.description}>{this.props.data.description}</Text>
+        <Text style={styles.name} numberOfLines = {1}>{this.props.data.name}</Text>
+        <Text style={styles.description} numberOfLines = {1}>{this.props.data.description}</Text>
       </View>
     );
   }

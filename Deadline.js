@@ -1,9 +1,11 @@
 'use strict'
 
 var React = require('react-native');
-var ItemMaterials =require('./itemDeadline.js');
+var ItemDeadline =require('./itemDeadline.js');
+var ItemAssignment = require('./itemAssignment');
 var {
   Image,
+  Platform,
   ListView,
   StyleSheet,
   SearchBar,
@@ -54,12 +56,25 @@ var Deadline = React.createClass({
     );
   },
 
+  selectDeadline: function(course) {
+    if (Platform.OS === 'ios') {
+      var data = course;
+      this.props.navigator.push({
+        title: course.name,
+        component: ItemAssignment,
+        passProps: {data},
+      });
+    } else {
+      //todo: android
+    }
+  },
+
   renderCourse: function(course) {
     if (course == undefined) {
       return (<Text>Loading!</Text>);
     }
     return (
-      <ItemMaterials data = {course}/>
+      <ItemDeadline data = {course} onPress={() => this.selectDeadline(course)}/>
     );
   },
 

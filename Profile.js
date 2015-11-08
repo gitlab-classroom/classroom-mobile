@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Square = require('./itemSquare');
+var ItemProfile = require('./itemProfile');
 var {
   PixelRatio,
   NavigatorIOS,
@@ -28,8 +29,15 @@ var Seperator = React.createClass({
 
 var Profile = React.createClass({
 
+  getInitialState: function() {
+    return {
+      data: null,
+    };
+  },
+
   componentDidMount() {
-    this._loadInitialState().done();
+    // this._loadInitialState().done();
+    this.fetch();
   },
 
   async _loadInitialState() {
@@ -41,6 +49,18 @@ var Profile = React.createClass({
       }
     } catch (error) {
     }
+  },
+
+  fetch: function () {
+    let USER_URL = 'https://htc.fdu13ss.org/api/v1/users/87';
+    fetch(USER_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          data: responseData,
+        });
+      })
+      .done();
   },
 
   renderProfile: function () {
@@ -56,19 +76,11 @@ var Profile = React.createClass({
       <View style={styles.container}>
         <View style={{marginTop: 30}}/>
         <Seperator/>
-        <View style={styles.profile}>
-          <Image
-            source={{uri: 'https://pic2.zhimg.com/a39818e6281796ee9936ab25f26ec20d_m.jpg'}}
-            style={styles.thumbnail}
-          />
-          <View style={styles.right}>
-            <Text style={styles.name}>何天成</Text>
-            <Text style={styles.description}>汪汪汪！</Text>
-          </View>
-        </View>
+        {this.state.data == null ? <View/> :
+        <ItemProfile data={this.state.data}/>}
         <Seperator/>
         <View style={{marginTop: 40}}/>
-        <Square data={{title: 'Email', content: '13302010000@fudan.edu.cn'}}/>
+        <Square data={{name: 'Email', description: '13302010000@fudan.edu.cn'}}/>
         <View/>
       </View>
     );

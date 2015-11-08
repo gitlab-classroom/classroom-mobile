@@ -12,7 +12,8 @@ var {
   TouchableHighlight,
   View,
 } = React;
-var ItemMaterials = require('./test.js');
+var ItemDetail = require('./itemDetail.js');
+var ItemAssignment = require('./itemAssignment');
 var EventBus = require('./EventBus');
 
 
@@ -77,53 +78,56 @@ var CourseDetails = React.createClass({
       data_members: null,
       data_notifications: null,
       // loaded: false,
-      // ACTIVITY_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/activities',
-      // ASSIGNMENT_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/assignments',
-      // MATERIAL_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/materials',
-      // MENBER_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/members',
-      // NOTIFICATION_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.data.id + '/notifications',
+      ACTIVITY_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/activities',
+      ASSIGNMENT_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/assignments',
+      MATERIAL_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/materials',
+      MENBER_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/members',
+      NOTIFICATION_URL: 'https://htc.fdu13ss.org/api/v1/classes/' + this.props.course.id + '/notifications',
     };
   },
   componentDidMount: function() {
-      this.fetchData();
+      this.fetchData(this.state.ACTIVITY_URL);
       var ctx = this;
       EventBus.addEventListener('show_modal', function(){ctx._setModalVisible(true)});
   },
 
   fetchData: function(url) {
-    // fetch(CLASS_URL)
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     this.setState({
-    //       dataSource: this.state.dataSource.cloneWithRows(responseData),
-    //     });
-    //   })
-    //   .done();
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(
-                [{id: 23333, name: "Monkey Tong", path: "...", description: "miao!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},
-                {id: 101110101, name: "miao", path: "...", description: "wang!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"}]
-              )
-    });
+    fetch(url)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+        });
+      })
+      .done();
+    // this.setState({
+    //   dataSource: this.state.dataSource.cloneWithRows(
+    //             [{id: this.props.id, name: "Monkey Tong", path: "...", description: this.props.course.name, avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"},
+    //             {id: 101110101, name: "miao", path: "...", description: "wang!", avatar_url: "https://pic4.zhimg.com/8e54087c7_m.jpg", web_url: "www.zhihu.com"}]
+    //           )
+    // });
   },
 
-  selectCourse: function(course) {
+  selectActivity: function(activity) {
     if (Platform.OS === 'ios') {
+      var data = activity;
       this.props.navigator.push({
-        title: course.name,
-        component: CourseDetails,
-        passProps: {course},
+        title: activity.name,
+        component: ItemAssignment,
+        passProps: {data},
       });
     } else {
       //todo: android
     }
   },
-  renderCourse: function(course, sectionID, rowID, highlightRowFunc) {
+
+
+  renderActivity: function(activity, sectionID, rowID, highlightRowFunc) {
 
     return (
-      <ItemMaterials
-        data = {course}
-        onSelect={() => this.selectCourse(course)}
+      <ItemDetail
+        data = {activity}
+        onSelect={() => this.selectActivity(activity)}
 
       />
     );
@@ -131,7 +135,6 @@ var CourseDetails = React.createClass({
 
   setModalVisible: function (visible) {
     this.setState({modalVisible: visible});
-
   },
 
   _setModalVisible(visible) {
@@ -167,7 +170,7 @@ var CourseDetails = React.createClass({
         <ListView
           dataSource={this.state.dataSource}
           // renderSeparator={this.renderSeparator}
-          renderRow={this.renderCourse}
+          renderRow={this.renderActivity}
 
           // style={styles.listView}
         />

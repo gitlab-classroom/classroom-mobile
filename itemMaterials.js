@@ -38,8 +38,8 @@ var ItemMaterials = React.createClass({
           style={styles.thumbnail}
         />
         <View style={styles.right}>
-          <Text style={styles.name}>{this.props.data.name}</Text>
-          <Text style={styles.description}>{this.props.data.description}</Text>
+          <Text style={styles.name}  numberOfLines = {1}>{this.props.data.name}</Text>
+          <Text style={styles.description}  numberOfLines = {1}>{this.props.data.description}</Text>
         </View>
       </View>
     </TouchableElement>
@@ -59,7 +59,7 @@ var styles = StyleSheet.create({
   thumbnail: {
     width: 50,
     height: 50,
-    borderRadius: 20,
+    borderRadius: 25,
     marginLeft: 10,
     marginRight: 10,
   },
