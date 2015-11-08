@@ -3,7 +3,6 @@
 var React = require('react-native');
 var Square = require('./itemSquare');
 var ItemProfile = require('./itemProfile');
-var ItemLogin = require('./itemLogin');
 var config = require('./config');
 var {
   PixelRatio,
@@ -66,34 +65,34 @@ var Profile = React.createClass({
   },
 
   renderProfile: function () {
+
+  },
+
+  renderLogin: function () {
+
+  },
+
+  render: function() {
     return (
       <View style={styles.container}>
         <View style={{marginTop: 30}}/>
         <Seperator/>
         {this.state.data == null ? <View/> :
-        <ItemProfile data={this.state.data}/>}
-        <Seperator/>
-        <View style={{marginTop: 40}}/>
-        <Square data={{name: 'Email', description: '13302010000@fudan.edu.cn'}}/>
-        <View/>
+          <View>
+          <ItemProfile data={this.state.data}/>
+          <Seperator/>
+          <View style={{marginTop: 40}}/>
+          <Square data={{name: 'Email:', description: this.state.data.email}}/>
+          <Square data={{name: 'Skype:', description: this.state.data.skype}}/>
+          <Square data={{name: 'Linkedin:', description: this.state.data.linkedin}}/>
+          <Square data={{name: 'Twitter:', description: this.state.data.twitter}}/>
+          <Square data={{name: 'Website:', description: this.state.data.website_url}}/>
+          <Seperator/>
+          </View>
+        }
+
       </View>
     );
-  },
-
-  renderLogin: function () {
-    return (
-      <View style={styles.container}>
-        <View style={{marginTop: 30}}/>
-        <Seperator/>
-        <ItemLogin/>
-        <Seperator/>
-        <View/>
-      </View>
-    );
-  },
-
-  render: function() {
-    return this.renderLogin();
   }
 });
 
