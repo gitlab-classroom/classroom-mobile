@@ -26,7 +26,7 @@ var ItemProfile = React.createClass({
         </View>
         <View style={styles.right}>
           <Text style={styles.name} numberOfLines={1}>{this.props.data.name}</Text>
-          <Text style={styles.web_url} numberOfLines={1}>{this.props.data.web_url}</Text>
+          <Text style={styles.web_url} numberOfLines={1}>{this.props.data.bio}</Text>
         </View>
       </View>
     );

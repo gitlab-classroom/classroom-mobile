@@ -10,6 +10,7 @@ var Deadline = require('./Deadline.js');
 var Profile = require('./Profile');
 var {
   AppRegistry,
+  AsyncStorage,
   NavigatorIOS,
   StyleSheet,
   TabBarIOS,
@@ -39,10 +40,39 @@ var Classroom = React.createClass({
     return {
       selectedTab: 'homeTab',
       notifCount: 0,
+      login: false,
     };
   },
 
+  componentDidMount: function() {
+    try {
+      var username = AsyncStorage.getItem('username');
+      if (username == null){
+        this.fetchData();
+      }
+      else {
+        this.setState({
+          login: true,
+        });
+      }
+    } catch (error) {
+      this.setState({
+        login: true,
+      });
+    }
+  },
 
+  fetchData: function() {
+    fetch('https://htc.fdu13ss.org/api/v1/session/login?username=13302010002%40fudan.edu.cn&password=13302010002')
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          login: true,
+        });
+        AsyncStorage.setItem('username', 'lfs');
+      })
+      .done();
+  },
 
   _renderContent: function(color: string, pageText: string) {
     return (
@@ -90,7 +120,11 @@ var Classroom = React.createClass({
     return this._renderContent('#414A8C', 'Home');
   },
 
-  render: function () {
+  renderLogin: function () {
+
+  },
+
+  renderTabBar: function() {
     return (
 
 
@@ -138,6 +172,14 @@ var Classroom = React.createClass({
         </TabBarIOS.Item>
       </TabBarIOS>
     );
+  },
+
+  render: function () {
+    if (this.state.login) {
+      return this.renderTabBar();
+    } else {
+      return (<Text>login</Text>);
+    }
   }
 });
 

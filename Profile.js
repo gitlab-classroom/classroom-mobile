@@ -52,7 +52,7 @@ var Profile = React.createClass({
   },
 
   fetch: function () {
-    let USER_URL = 'https://htc.fdu13ss.org/api/v1/users/87';
+    let USER_URL = 'https://htc.fdu13ss.org/api/v1/users/me';
     fetch(USER_URL)
       .then((response) => response.json())
       .then((responseData) => {
@@ -77,11 +77,19 @@ var Profile = React.createClass({
         <View style={{marginTop: 30}}/>
         <Seperator/>
         {this.state.data == null ? <View/> :
-        <ItemProfile data={this.state.data}/>}
-        <Seperator/>
-        <View style={{marginTop: 40}}/>
-        <Square data={{name: 'Email', description: '13302010000@fudan.edu.cn'}}/>
-        <View/>
+          <View>
+          <ItemProfile data={this.state.data}/>
+          <Seperator/>
+          <View style={{marginTop: 40}}/>
+          <Square data={{name: 'Email:', description: this.state.data.email}}/>
+          <Square data={{name: 'Skype:', description: this.state.data.skype}}/>
+          <Square data={{name: 'Linkedin:', description: this.state.data.linkedin}}/>
+          <Square data={{name: 'Twitter:', description: this.state.data.twitter}}/>
+          <Square data={{name: 'Website:', description: this.state.data.website_url}}/>
+          <Seperator/>
+          </View>
+        }
+
       </View>
     );
   }

@@ -11,13 +11,25 @@ var {
   View,
   } = React;
 
+var Seperator = React.createClass({
+
+  render: function() {
+    return (
+      <View style={styles.rowSeparator}/>
+    );
+  }
+
+});
 
 var ItemSquare = React.createClass({
   render: function() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.name} numberOfLines = {1}>{this.props.data.name}</Text>
-        <Text style={styles.description} numberOfLines = {1}>{this.props.data.description}</Text>
+      <View>
+      <Seperator/>
+        <View style={styles.container}>
+          <Text style={styles.name} numberOfLines = {1}>{this.props.data.name}</Text>
+          <Text style={styles.description} numberOfLines = {1}>{this.props.data.description}</Text>
+        </View>
       </View>
     );
   }
@@ -28,6 +40,7 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     height: 60,
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   name: {
     flex: 1,
@@ -38,10 +51,15 @@ var styles = StyleSheet.create({
     paddingRight: 10,
   },
   description: {
-    flex: 4,
+    flex: 3,
     fontSize: 15,
     color: '#000000',
     paddingRight: 10,
+  },
+  rowSeparator: {
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    height: 1,
+    marginLeft: 4,
   },
 });
 
